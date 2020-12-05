@@ -44,28 +44,18 @@ const formatChecker = (() => {
   const iyr = (n) => numRange(n, 2010, 2020);
   const eyr = (n) => numRange(n, 2020, 2030);
   const hgt = (n) => {
-    if (typeof n) n = String(n);
-    let unit = n.charAt(n.length-2) + n.charAt(n.length-1);
-    if (unit === "cm") return numRange(n.substring(0, n.length-2), 150, 193);
-    if (unit === "in") return numRange(n.substring(0, n.length-2), 59, 76);
+    let unit = n.slice(-2);
+    let num = n.slice(0, -2);
+    if (unit === "cm") return numRange(num, 150, 193);
+    if (unit === "in") return numRange(num, 59, 76);
     return false;
   }
   const numRange = (num, min, max) => !isNaN(num) && num >= min && num <= max;
 
-  const hcl = (n) => regex(n, /#([0-9]|[a-f]){6}/);
-  const pid = (n) => regex(n, /[0-9]{9}/);
-  const regex = (n, r) => {
-    let match = n.match(r);
-    return match && n === match[0];
-  }
+  const hcl = (n) => /^#[0-9a-f]{6}$/.test(n);
+  const pid = (n) => /^[0-9]{9}$/.test(n);
 
-  const ecl = (n) => {
-    for (const color of eyeColor) {
-      if (n === color) return true;
-    }
-    return false;
-  };
-  const eyeColor = ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"];
+  const ecl = (n) => ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"].includes(n);
 
   return { byr, iyr, eyr, hgt, hcl, ecl, pid };
 })();
