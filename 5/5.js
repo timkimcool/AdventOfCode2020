@@ -15,26 +15,25 @@ reader.readFile('5_in.txt', (err, data) => {
   // PART ONE
   console.log("Part One: ", bigBPass(bPasses));
 
-  // Part TWO
+  // PART TWO
   console.log("Part Two: ", myBPass(bPasses));
 });
 
 function bigBPass(bPasses) {
-  return bPasses.reduce((big, bPass) => bPass.seatID > big ? bPass.seatID : big, 0);
+  return bPasses.reduce((big, bPass) => Math.max(big, bPass.seatID), 0);
 }
 function strToSeatID(bPass) {
   return parseInt(strToBit(bPass.row, "B"), 2) * 8 + parseInt(strToBit(bPass.col, "R"), 2);
 }
 
-function strToBit(str, front) {
+function strToBit(str, topChar) {
   let bit = "";
-  for (let char of str) { bit = bit.concat(char == front ? 1 : 0); }
+  for (let char of str) { bit = bit.concat(char == topChar ? 1 : 0); }
   return bit;
 }
 
 function myBPass(bPasses) {
-  let seatIDs = Array.from(bPasses, bPass => bPass.seatID);
-  seatIDs.sort();
+  let seatIDs = bPasses.map(bPass => bPass.seatID).sort((a,b) => a - b);
   for (let i = 0; i < seatIDs.length; i++) {
     if (seatIDs[i] + 1 != seatIDs[i + 1]) { return seatIDs[i] + 1; }
   }
