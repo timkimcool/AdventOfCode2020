@@ -9,6 +9,7 @@ reader.readFile('7_in.txt', (err, data) => {
     .map(bag => {
       bag = bag.split(" contain ");
       let sourceBag = bag[0].replace(" bags", "");
+      console.log(bag[1]);
       let targetBags = bag[1].split(" bags, ").join(" bag, ").split(" bag, ").map(tBag => tBag.replace(" bags.", "").replace(" bag.", "").replace("no", "0"));
       let vertex = {
         name: sourceBag,
@@ -41,6 +42,7 @@ function searchForBag(targetBag) {
   return bagSet.size;
 }
 
+// Part One
 function search(vertexName, targetBag) {
   let vertex = vertices[vertexName];
   vertex.explored = true;
@@ -58,6 +60,7 @@ function addBag(bag) {
   return true;
 }
 
+// Part Two
 function countTotalBags(bag) {
   let count = 1;
   let vertex = vertices[bag];
