@@ -33,8 +33,7 @@ function breakRule(array, sum) {
 function findEncryptionWeakness(array, preambleLength) {
   const value = findRuleBreaker(array, preambleLength);
   let setArray = findSet(array, value);
-  setArray.sort()
-  return setArray[0] + setArray[setArray.length - 1];
+  return Math.min(...setArray) + Math.max(...setArray);
 }
 
 function findSet(array, value) {
