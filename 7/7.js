@@ -1,6 +1,5 @@
 var vertices;
 var bagSet = new Set();
-const { strict } = require('assert');
 let reader = require('fs');
 reader.readFile('7_in.txt', (err, data) => {
   if (err) throw err;

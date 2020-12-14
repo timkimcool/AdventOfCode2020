@@ -1,4 +1,3 @@
-const { strict } = require('assert');
 let reader = require('fs');
 reader.readFile('10_in.txt', (err, data) => {
   if (err) throw err;
