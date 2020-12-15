@@ -11,21 +11,15 @@ reader.readFile('15_in.txt', (err, data) => {
 });
 
 function recite(memStart, end) {
-  end++;
   let mem = new Map();
-  memStart.map((num, index) => mem.set(+num, [index + 1]));
+  memStart.map((num, index) => mem.set(+num, index + 1));
   let count = mem.size + 1;
-  let lastNum = +memStart[memStart.length - 1];
-  let first = true;
+  let lastNum = +memStart[mem.size];
+  end++;
   while (count < end) {
-    lastNum = first ? 0 : mem.get(lastNum)[1] - mem.get(lastNum)[0];
-    first = mem.has(lastNum) ? false : true;
-    if (first) {
-      mem.set(lastNum, [count]);
-    } else {
-      let lastEntry = mem.get(lastNum)[mem.get(lastNum).length - 1];
-      mem.set(lastNum, [ lastEntry, count ]);
-    }
+    curNum = mem.has(lastNum) ? count - 1 - mem.get(lastNum) : 0;
+    mem.set(lastNum, count - 1);
+    lastNum = curNum;
     count++;
   }
   return lastNum;
