@@ -8,7 +8,7 @@ reader.readFile('16_in.txt', (err, data) => {
     .map(ele => ele.substring(ele.indexOf(': ') + 2)
     .split(' or '))
     .reduce((acc, cur) => acc.concat(cur), [])
-    .map(ran => ran.split('-'));  // [[min, max], [min, max], ...]
+    .map(ran => ran.split('-'));
   numHeap = heap(numHeap);
 
   tickets = tickets.split('\r\n').slice(1);
@@ -17,7 +17,7 @@ reader.readFile('16_in.txt', (err, data) => {
   console.log("Part One: ", errorRate(tickets, numHeap));
   
   // PART TWO
-  console.log("Part Two: ", solvePartTwo(numRange, numHeap, yourTic, tickets))
+  console.log("Part Two: ", solve2(numRange, numHeap, yourTic, tickets))
 });
 
 
@@ -37,6 +37,7 @@ function heap(numRange) {
   return arr;
 }
 
+//  PART ONE
 function errorRate(nearTic, numHeap) {
   return nearTic.reduce((acc, cur) => {
     cur.split(",").map(val => {
@@ -46,8 +47,8 @@ function errorRate(nearTic, numHeap) {
   0);
 }
 
-// PART TWO
-function solvePartTwo(numRange, numHeap, yourTic, tickets) {
+//  PART TWO
+function solve2(numRange, numHeap, yourTic, tickets) {
   // String => Object { "name": fieldName, "range": arrayOfPossibleValues }
   let fields = createFieldHeapsObj(numRange);
 
