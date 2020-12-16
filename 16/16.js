@@ -20,7 +20,6 @@ reader.readFile('16_in.txt', (err, data) => {
   console.log("Part Two: ", solve2(numRange, numHeap, yourTic, tickets))
 });
 
-
 function heap(numRange) {
   let arr = [];
   let count = 0;
